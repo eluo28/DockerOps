@@ -6,3 +6,16 @@ services:
       - "3000:3000"
     env_file:
       - ./.env
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=eluo28
+      - MONGO_INITDB_ROOT_PASSWORD=test
+    volumes:
+      - mongo-db:/data/db
+
+volumes:
+  mongo-db:

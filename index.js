@@ -7,11 +7,14 @@ const {
   MONGO_PORT,
 } = require("./config/config");
 
+const postRouter = require("./routes/postRoutes");
+const userRouter = require("./routes/userRoutes");
+
 const app = express();
 
 const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`;
 
-console.log(mongoURL)
+console.log(mongoURL);
 
 mongoose
   .connect(mongoURL, {
@@ -22,9 +25,15 @@ mongoose
   .then(() => console.log("connected to DB"))
   .catch((e) => console.log(e));
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.send("<h1>hello worrrld<h1>");
 });
+
+app.use("/api/v1/posts", postRouter);
+
+app.use("/api/v1/users", userRouter);
 
 const port = process.env.PORT || 3000;
 

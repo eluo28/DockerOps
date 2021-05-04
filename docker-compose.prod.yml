@@ -5,7 +5,7 @@ services:
       - "80:80"
   dockerop:
     deploy:
-      replicas: 8
+      replicas: 4
       restart_policy:
         condition: any
       update_config:
